@@ -2,7 +2,7 @@
 (
 	HistoryDate		DATETIME2		NOT NULL 
 	, OrderId		INT				NOT NULL
-	, OrderData		NVARCHAR(MAX)	NOT NULL
+	, OrderData		NVARCHAR(2000)	NOT NULL
 ) ON History;
 GO
 

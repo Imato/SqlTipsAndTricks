@@ -13,3 +13,48 @@
 
 	, CONSTRAINT PK_Orders_wAsyncTriger PRIMARY KEY (OrderId)
 ) ON Data1;
+GO
+
+CREATE TRIGGER TG_Orders_wAsyncTriger ON dbo.Orders_wAsyncTriger
+AFTER INSERT, UPDATE
+AS
+BEGIN 
+
+	SET NOCOUNT ON;
+
+	DECLARE @OrderData VARCHAR(MAX);
+
+	SET @OrderData =
+		(
+			SELECT 
+				OrderId
+				, OrderDate
+				, CustomerId
+				, ProductId
+				, Amount
+				, Quantity
+				, DeliveryId
+				, ShipmentInfo
+				, IsDeleted
+			FROM inserted
+			FOR JSON PATH, ROOT('OrderData')
+		);
+
+	IF @OrderData IS NOT NULL
+	BEGIN 
+
+		DECLARE @Handle UNIQUEIDENTIFIER;  
+		 
+        BEGIN DIALOG CONVERSATION @Handle   
+        FROM SERVICE OrderHistoryServiceInitiator   
+        TO SERVICE 'OrderHistoryServiceTarget'   
+        ON CONTRACT OrderHistotyContract   
+        WITH ENCRYPTION = OFF;   
+
+        SEND ON CONVERSATION @Handle   
+        MESSAGE TYPE OrderHistoryMessageType(@OrderData);
+
+	END;
+	
+END;
+GO

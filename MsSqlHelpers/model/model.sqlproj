@@ -4,16 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <Name>Database</Name>
+    <Name>model</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
-    <ProjectGuid>{c9af9054-80c2-4c49-a24a-d0da34edae12}</ProjectGuid>
+    <ProjectGuid>{64072f9b-4a77-444a-b523-a186c75fc9b4}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
-    <RootNamespace>Database</RootNamespace>
-    <AssemblyName>Database</AssemblyName>
+    <RootNamespace>model</RootNamespace>
+    <AssemblyName>model</AssemblyName>
     <ModelCollation>1033, CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
@@ -23,9 +23,6 @@
     <SqlServerVerification>False</SqlServerVerification>
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseSet>True</TargetDatabaseSet>
-    <Recovery>SIMPLE</Recovery>
-    <ServiceBrokerOption>EnableBroker</ServiceBrokerOption>
-    <EnableFullTextSearch>False</EnableFullTextSearch>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -60,32 +57,17 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
-    <Folder Include="Tables" />
-    <Folder Include="Storage" />
-    <Folder Include="ServiceBrocker" />
-    <Folder Include="Procedures" />
-    <Folder Include="Scripts" />
+    <Folder Include="Shemas" />
+    <Folder Include="Types" />
+    <Folder Include="StoredProcedures" />
+    <Folder Include="Functions" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Tables\Orders.sql" />
-    <Build Include="Storage\Data1FileGroup.sql" />
-    <Build Include="Storage\Data1File.sql" />
-    <Build Include="Tables\Orders_wTriger.sql" />
-    <Build Include="Tables\Orders_wAsyncTriger.sql" />
-    <Build Include="Tables\OrdersHistory.sql" />
-    <Build Include="Storage\HistoryFileGroup.sql" />
-    <Build Include="Storage\HistoryFile.sql" />
-    <Build Include="ServiceBrocker\OrderHistotyQueue.sql" />
-    <Build Include="ServiceBrocker\OrderHistotyContract.sql" />
-    <Build Include="ServiceBrocker\OrderHistoryMessageType.sql" />
-    <Build Include="Procedures\AddOrdersHistory.sql" />
-    <Build Include="Procedures\AddOrdersHistoryAsync.sql" />
-    <Build Include="ServiceBrocker\OrderHistoryServiceInitiator.sql" />
-    <Build Include="ServiceBrocker\OrderHistoryServiceTarget.sql" />
-    <Build Include="Tables\EventLog.sql" />
+    <Build Include="Shemas\mh.sql" />
+    <Build Include="Types\TableIntRange.sql" />
+    <Build Include="Functions\GetIntRange.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Sales - deploy.publish.xml" />
-    <None Include="Scripts\TestData.sql" />
+    <None Include="model - deploy.publish.xml" />
   </ItemGroup>
 </Project>

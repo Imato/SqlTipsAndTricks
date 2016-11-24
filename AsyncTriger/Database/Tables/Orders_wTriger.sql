@@ -34,8 +34,7 @@ BEGIN
 		, 
 			(
 				SELECT 
-					OrderId
-					, OrderDate
+					OrderDate
 					, CustomerId
 					, ProductId
 					, Amount
